@@ -12,8 +12,8 @@ export default async function handler(req, res) {
   var time = dateNtime[1].split(' ')[1]
   var date = dateNtime[0]
   // GET IP 
-  // var ip = req.connection.remoteAddress.split(":").slice(-1).toString()
-  var ip = req.connection.remoteAddress.toString()
+  var ip = req.connection.remoteAddress.split(":").slice(-1).toString()
+
 
   let data = {
     ip:ip,
@@ -26,15 +26,15 @@ export default async function handler(req, res) {
     case 'GET':
       try { 
         const response = await SavedIp.findOne({ip:data.ip}).exec()
-
+        // console.log(ip)
         if(response) { 
           response.visit = response.visit + 1;
           await response.save()
-          console.log('true',response)
-          res.status(400).json({ success: false, data: "already exist" })
+          // console.log('true',response)
+          res.status(400).json({ success: false, data: ip })
         } else {
           const response = await SavedIp.create(data)
-          console.log('false',response)
+          // console.log('false',response)
           res.status(200).json({ success: true, data: "noted!" })
         }
       } catch (error) {
