@@ -13,6 +13,7 @@ export default async function handler(req, res) {
   var date = dateNtime[0]
   // GET IP 
   var ip = req.connection.remoteAddress.split(":").slice(-1).toString()
+  var ip = req.connection.remoteAddress.toString()
 
   let data = {
     ip:ip,
